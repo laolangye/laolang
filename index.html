@@ -6,31 +6,50 @@
     <title>我的音频网站</title>
     <style>
         body {
-            font-family: sans-serif;
-            background-color: #f4f4f4;
-            text-align: center;
-            padding-top: 50px;
-        }
-        h1 {
+            margin: 0;
+            padding: 0;
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             color: #333;
         }
-        .player-box {
-            margin-top: 30px;
-            display: inline-block;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 90%;
+            width: 400px;
+        }
+        h1 {
+            font-size: 26px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 25px;
+        }
+        audio {
+            width: 100%;
+            outline: none;
+            border-radius: 30px;
         }
     </style>
 </head>
 <body>
-    <h1>欢迎来到我的音频网站</h1>
-    <p>网站搭建成功！来听首歌吧：</p >
-    
-    <div class="player-box">
-        <audio controls src="music..mp3">
-            您的浏览器不支持音频播放
+    <div class="card">
+        <h1>欢迎来到我的音频网站</h1>
+        <p>网站搭建成功！来听首歌吧：</p >
+        <audio controls autoplay loop>
+            <!-- 下面这行请保持你原来的音频文件名不变 -->
+            <source src="music..mp3" type="audio/mpeg">
+            您的浏览器不支持音频播放。
         </audio>
     </div>
 </body>
