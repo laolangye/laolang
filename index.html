@@ -5,168 +5,131 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>老狼音频工作室</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #f4f5f9;
             color: #333;
-            padding-top: 20px; /* 修复顶部间距 */
         }
+        /* 顶部 */
         .header {
-            text-align: center;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             padding: 40px 20px 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            text-align: center;
             color: white;
-            margin-bottom: 20px;
-            border-radius: 0 0 20px 20px;
         }
-        .header h1 {
-            font-size: 28px;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-        }
-        .header p {
-            font-size: 15px;
-            opacity: 0.9;
-            margin-bottom: 20px;
-        }
+        .header h1 { font-size: 28px; margin-bottom: 6px; }
+        .header p { font-size: 14px; opacity: 0.9; margin-bottom: 20px; }
         .search-box {
-            background: rgba(255,255,255,0.2);
-            padding: 10px 20px;
+            background: rgba(255,255,255,0.25);
+            padding: 12px 22px;
             border-radius: 30px;
-            display: inline-block;
-            font-size: 14px;
-            backdrop-filter: blur(5px);
+            display: inline-flex;
+            align-items: center;
+            width: 90%;
+            max-width: 400px;
+            backdrop-filter: blur(6px);
         }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 15px 40px;
+        .search-box span { margin-right: 10px; font-size: 16px; }
+        .search-box input {
+            border: none;
+            background: transparent;
+            outline: none;
+            color: white;
+            font-size: 15px;
+            width: 100%;
         }
+        .search-box input::placeholder { color: rgba(255,255,255,0.7); }
+
+        /* 主体 */
+        .container { max-width: 1000px; margin: 0 auto; padding: 30px 20px; }
+        .section-title { font-size: 18px; margin-bottom: 16px; color: #444; font-weight: bold; }
+
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 22px;
         }
         .card {
             background: white;
-            border-radius: 16px;
+            border-radius: 18px;
             overflow: hidden;
             box-shadow: 0 6px 18px rgba(0,0,0,0.06);
             transition: transform 0.2s, box-shadow 0.2s;
             display: flex;
             flex-direction: column;
         }
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
-        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 12px 26px rgba(0,0,0,0.12); }
+
         .cover {
-            height: 140px;
+            height: 130px;
             position: relative;
-            overflow: hidden;
-            background: #f0f0f0;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 42px;
         }
-        .cover img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-        .cover-icon {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-        }
-        .cover-text {
-            position: absolute;
-            bottom: 12px;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            font-size: 14px;
-            font-weight: bold;
-            z-index: 1;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-        .card-info {
-            padding: 16px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        .card-title {
-            font-size: 17px;
-            font-weight: bold;
-            margin-bottom: 6px;
-            color: #222;
-        }
-        .card-desc {
-            font-size: 13px;
-            color: #777;
-            margin-bottom: 12px;
-            line-height: 1.4;
-        }
-        .tag {
-            display: inline-block;
-            background: #f0f4ff;
-            color: #667eea;
-            padding: 3px 10px;
+        .cover-icon { font-size: 42px; margin-bottom: 6px; }
+        .cover-text { font-size: 15px; font-weight: bold; }
+
+        .card-info { padding: 16px; display: flex; flex-direction: column; flex-grow: 1; }
+        .card-title { font-size: 16px; font-weight: bold; margin-bottom: 6px; }
+        .card-desc { font-size: 13px; color: #777; margin-bottom: 12px; line-height: 1.4; }
+        .tag-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+        .tag { padding: 3px 10px; border-radius: 12px; font-size: 12px; }
+        .buy-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 5px 14px;
             border-radius: 12px;
             font-size: 12px;
-            align-self: flex-start;
-            margin-bottom: 12px;
+            cursor: pointer;
+            transition: opacity 0.2s;
         }
-        .player-section {
-            margin-top: auto;
-            width: 100%;
-        }
-        audio {
-            width: 100%;
-            outline: none;
-            border-radius: 30px;
-            height: 36px;
-        }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <h1>我的音频网站</h1>
-        <p>资源分享与音频播放</p >
-        <div class="search-box">🔍 输入关键字开始搜索</div>
-    </div>
+        .buy-btn:hover { opacity: 0.85; }
 
-    <div class="container">
-        <div class="grid">
-            <!-- 卡片 1：精选单曲 -->
-            <div class="card">
-                <div class="cover" style="background:linear-gradient(135deg,#667eea,#764ba2);">
-                    <div class="cover-icon">▶️</div>
-                    <div class="cover-text">精选单曲</div>
-                </div>
-                <div class="card-info">
-                    <div class="card-title">精选单曲</div>
-                    <div class="card-desc">网站搭建成功！来听首歌吧</div>
-                    <span class="tag">音频播放</span>
-                    <div class="player-section">
-                        <audio controls autoplay loop>
-                            <!-- ⚠️ 这里替换成你真实的音频文件名 -->
-                            <source src="music..mp3" type="audio/mpeg">
-                            您的浏览器不支持音频播放。
-                        </audio>
-                    </div>
-                </div>
-            </div>
+        .player-section { margin-top: auto; width: 100%; }
+        audio { width: 100%; outline: none; border-radius: 30px; height: 34px; }
 
-            <!-- 卡片 2：声卡调试 -->
-            <div class="card">
-                <div class="cover" style=
+        /* 弹窗 */
+        .modal-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background: white;
+            border-radius: 20px;
+            padding: 28px 24px;
+            max-width: 360px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            animation: pop 0.25s ease;
+        }
+        @keyframes pop { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .modal-close {
+            position: absolute; top: 14px; right: 16px;
+            font-size: 22px; cursor: pointer; color: #999;
+            background: none; border: none;
+        }
+        .modal h3 { font-size: 20px; margin-bottom: 8px; }
+        .modal .price { font-size: 26px; color: #e63946; font-weight: bold; margin: 10px 0; }
+        .modal .qrcode {
+            width: 180px; height: 180px;
+            margin: 12px auto;
+            background: #f0f0f0;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            color: #999; font-size: 14px;
+        }
+        .modal .qrcode img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; }
+        .modal p.tip { font-size: 13px; color: #777; margin-top: 10px; line-height: 1.5; }
+ 
