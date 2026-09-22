@@ -5,136 +5,161 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>老狼音频工作室</title>
     <style>
-        /* 基础与渐变背景 */
-        body {
+        * {
             margin: 0;
             padding: 0;
-            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: #333;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         }
-        /* 顶部区域 */
+        body {
+            background: #f8f9fa;
+            color: #333;
+            padding-top: 20px; /* 修复顶部间距 */
+        }
         .header {
-            padding: 40px 20px 20px;
             text-align: center;
+            padding: 40px 20px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
+            margin-bottom: 20px;
+            border-radius: 0 0 20px 20px;
         }
         .header h1 {
-            margin: 0;
             font-size: 28px;
+            margin-bottom: 8px;
             letter-spacing: 1px;
         }
         .header p {
-            margin: 10px 0 20px;
-            font-size: 14px;
-            opacity: 0.9;
-        }
-        /* 搜索框 */
-        .search-box {
-            background: rgba(255,255,255,0.9);
-            border-radius: 30px;
-            padding: 10px 20px;
-            width: 80%;
-            max-width: 400px;
-            margin: 0 auto;
-            text-align: left;
-            color: #999;
             font-size: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            opacity: 0.9;
+            margin-bottom: 20px;
         }
-        /* 主体卡片容器 */
+        .search-box {
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 30px;
+            display: inline-block;
+            font-size: 14px;
+            backdrop-filter: blur(5px);
+        }
         .container {
-            padding: 20px;
-            max-width: 900px;
-            margin: 0 auto 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 15px 40px;
         }
-        /* 网格布局（手机单列，大屏双列） */
         .grid {
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
         }
-        @media (min-width: 600px) {
-            .grid { grid-template-columns: 1fr 1fr; }
-        }
-        /* 资源卡片 */
         .card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 15px;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
             display: flex;
-            align-items: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            flex-direction: column;
         }
-        /* 封面占位图 */
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+        }
         .cover {
-            width: 80px;
-            height: 80px;
-            background: #e0eaff;
-            border-radius: 15px;
+            height: 140px;
+            position: relative;
+            overflow: hidden;
+            background: #f0f0f0;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
-            margin-right: 15px;
-            flex-shrink: 0;
+            color: white;
+            font-size: 42px;
+        }
+        .cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .cover-icon {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        .cover-text {
+            position: absolute;
+            bottom: 12px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            z-index: 1;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
         .card-info {
+            padding: 16px;
             flex: 1;
+            display: flex;
+            flex-direction: column;
         }
         .card-title {
             font-size: 17px;
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
+            color: #222;
         }
         .card-desc {
             font-size: 13px;
-            color: #666;
-            margin-bottom: 8px;
+            color: #777;
+            margin-bottom: 12px;
+            line-height: 1.4;
         }
         .tag {
             display: inline-block;
             background: #f0f4ff;
             color: #667eea;
-            padding: 2px 8px;
-            border-radius: 10px;
+            padding: 3px 10px;
+            border-radius: 12px;
             font-size: 12px;
+            align-self: flex-start;
+            margin-bottom: 12px;
         }
-        /* 播放器区域（保留你原有的核心） */
         .player-section {
-            margin-top: 10px;
+            margin-top: auto;
             width: 100%;
         }
         audio {
             width: 100%;
             outline: none;
             border-radius: 30px;
+            height: 36px;
         }
     </style>
 </head>
 <body>
-    <!-- 顶部 -->
     <div class="header">
         <h1>我的音频网站</h1>
         <p>资源分享与音频播放</p >
         <div class="search-box">🔍 输入关键字开始搜索</div>
     </div>
 
-    <!-- 主体内容 -->
     <div class="container">
         <div class="grid">
-            
-            <!-- 卡片 1：你的单曲播放 -->
+            <!-- 卡片 1：精选单曲 -->
             <div class="card">
-                <div class="cover">🎵</div>
+                <div class="cover" style="background:linear-gradient(135deg,#667eea,#764ba2);">
+                    <div class="cover-icon">▶️</div>
+                    <div class="cover-text">精选单曲</div>
+                </div>
                 <div class="card-info">
                     <div class="card-title">精选单曲</div>
                     <div class="card-desc">网站搭建成功！来听首歌吧</div>
                     <span class="tag">音频播放</span>
                     <div class="player-section">
                         <audio controls autoplay loop>
-                            <!-- ⚠️ 请保持你原来的真实音频文件名 -->
+                            <!-- ⚠️ 这里替换成你真实的音频文件名 -->
                             <source src="music..mp3" type="audio/mpeg">
                             您的浏览器不支持音频播放。
                         </audio>
@@ -142,28 +167,6 @@
                 </div>
             </div>
 
-            <!-- 卡片 2：占位（模拟资源站风格，后续可加真实内容） -->
+            <!-- 卡片 2：声卡调试 -->
             <div class="card">
-                <div class="cover" style="background:#ffe0e0;">🎧</div>
-                <div class="card-info">
-                    <div class="card-title">声卡调试资源</div>
-                    <div class="card-desc">站长亲调 问题排查</div>
-                    <span class="tag" style="background:#fff0f0;color:#e6677e;">待更新</span>
-                </div>
-            </div>
-
-            <!-- 卡片 3：占位 -->
-            <div class="card">
-                <div class="cover" style="background:#e0ffe9;">🎹</div>
-                <div class="card-info">
-                    <div class="card-title">机架插件</div>
-                    <div class="card-desc">一键安装 方便快捷</div>
-                    <span class="tag" style="background:#f0fff4;color:#67ae7e;">工具</span>
-                </div>
-            </div>
-
-            <!-- 卡片 4：占位 -->
-            <div class="card">
-                <div class="cover" style="background:#f0e0ff;">🎤</div>
-                <div class="card-info">
-                    <div clas
+                <div class="cover" style=
